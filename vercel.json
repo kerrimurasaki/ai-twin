@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/twin",
+      "destination": "/api/twin.js"
+    },
+    {
+      "source": "/api/image",
+      "destination": "/api/image.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
