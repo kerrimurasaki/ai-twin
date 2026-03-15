@@ -6,14 +6,14 @@ import {
   signInWithEmailLink 
 } from "firebase/auth";
 
-// TODO: Replace with your actual Firebase config from the Firebase Console
+// Use Vite environment variables for security
 const firebaseConfig = {
-  apiKey: "AIzaSyDohQn5MYCE2QlP5iqxuhNgRqY4orn_PrM",
-  authDomain: "speakmesh.firebaseapp.com",
-  projectId: "speakmesh",
-  storageBucket: "speakmesh.firebasestorage.app",
-  messagingSenderId: "323553047928",
-  appId: "1:323553047928:web:1205d491570f828448c48d"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);
