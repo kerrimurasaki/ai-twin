@@ -33,7 +33,7 @@ Create their AI Twin — a supercharged AI version of them. Return ONLY valid JS
   "mission": "<one sentence at superhuman scale>",
   "human_superpower": "<one sentence genuine compliment specific to these 3 words>",
   "tagline": "<8-12 word tagline celebrating the human>",
-  "image_prompt": "<DALL-E style prompt: futuristic holographic avatar for a ${jobTitle}, abstract tech, no text>"
+  "image_prompt": "<DALL-E style prompt: a gender-neutral anime character persona for a ${jobTitle}, Pokemon trainer aesthetic, vibrant cell-shading, holding a futuristic tool, no text>"
 }`
 
   try {

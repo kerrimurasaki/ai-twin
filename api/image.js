@@ -14,9 +14,10 @@ export default async function handler(req, res) {
 
   const fullPrompt =
     imagePrompt +
-    ' Style: holographic trading card portrait, iridescent neon energy, ' +
-    'futuristic abstract avatar, dark background with cyan and violet accents, ' +
-    'glowing light trails, professional Singapore tech aesthetic. ' +
+    ' Style: gender-neutral anime character, Pokemon trainer aesthetic, ' +
+    'vibrant cell-shaded illustration, clean bold outlines, ' +
+    'soft glowing aura, magical or technical companion creature in background, ' +
+    'high-quality digital art, vibrant color palette. ' +
     'No text, no words, no letters, no numbers anywhere in the image.'
 
   try {
