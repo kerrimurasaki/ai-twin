@@ -274,6 +274,9 @@ export default function AITwinApp() {
           window.localStorage.removeItem('emailForSignIn');
           setToast("✓ Email verified!");
           
+          // Clean up URL parameters (remove apiKey, oobCode, etc. from browser bar)
+          window.history.replaceState({}, document.title, window.location.pathname);
+          
           const savedTwin = window.localStorage.getItem('pendingTwin');
           const savedWords = window.localStorage.getItem('pendingWords');
           
