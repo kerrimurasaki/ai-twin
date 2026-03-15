@@ -260,9 +260,9 @@ export default function AITwinApp() {
     const checkLink = async () => {
       const url = window.location.href;
       if (isSignInWithEmailLink(auth, url)) {
-        console.log("Firebase Link Detected:", url);
         setPhase("loading");
         setLoadingStep(0);
+        setToast("⌛ Verifying magic link...");
         
         let savedEmail = window.localStorage.getItem('emailForSignIn');
         if (!savedEmail) {
@@ -270,15 +270,15 @@ export default function AITwinApp() {
         }
         
         try {
-          const result = await signInWithEmailLink(auth, savedEmail, url);
-          console.log("Sign-in successful:", result.user.email);
+          await signInWithEmailLink(auth, savedEmail, url);
           window.localStorage.removeItem('emailForSignIn');
+          setToast("✓ Email verified!");
           
           const savedTwin = window.localStorage.getItem('pendingTwin');
           const savedWords = window.localStorage.getItem('pendingWords');
           
           if (savedTwin && savedWords) {
-            console.log("Restoring Twin State...");
+            setToast("✨ Restoring your AI Twin...");
             const parsedTwin = JSON.parse(savedTwin);
             setTwin(parsedTwin);
             setSelectedWords(JSON.parse(savedWords));
@@ -289,25 +289,29 @@ export default function AITwinApp() {
             try {
               const imgUrl = await generateTwinImage(parsedTwin.image_prompt);
               setTwinImage(imgUrl);
-            } catch (err) {
-              setError("Portrait validation successful, but image generation failed.");
-              console.error(err);
+              setToast("✓ Portrait revealed!");
+            } catch (imageErr) {
+              setError("Email verified, but image generation failed.");
+              console.error(imageErr);
+              setToast("⚠️ Image generation failed");
             }
             setIsUnlocking(false);
           } else {
             console.warn("No pending twin data found in localStorage.");
-            setError("Success! Your email is verified, but we couldn't find your twin data. Please create a new one.");
+            setError("Email verified! But we couldn't find your session data. This happens if you opened the link in a different browser or device.");
             setPhase("input");
           }
         } catch (err) {
           console.error("Link validation error:", err);
-          setError("Failed to validate email. The link may have expired or was used on a different device.");
+          setError(err.message || "Failed to validate link. It may have expired or was used once already.");
+          setToast("❌ Link validation failed");
           setPhase("input");
         }
+        setTimeout(() => setToast(""), 4000);
       }
     };
     checkLink();
-  }, []);
+  }, [setToast]);
 
   const toggleWord = (word) => {
     setSelectedWords(prev => {
@@ -341,9 +345,7 @@ export default function AITwinApp() {
       setPhase("card");
     } catch (err) {
       clearInterval(stepTimer.current);
-      setError(err.message?.includes("401") || err.message?.includes("key")
-        ? "Invalid API key. Please check configuration."
-        : "Something went wrong generating your twin. Please try again.");
+      setError(err.message || "Something went wrong generating your twin. Please try again.");
       setPhase("input");
     }
   };
@@ -521,6 +523,7 @@ export default function AITwinApp() {
                               {isUnlocking ? "Unlocking..." : "Unlock Portrait"}
                             </button>
                             {emailError && <div className="unlock-error">{emailError}</div>}
+                            {error && <div className="unlock-error" style={{ color: '#ff4d4d' }}>{error}</div>}
                           </>
                         )}
                       </div>
