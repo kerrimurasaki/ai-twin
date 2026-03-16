@@ -15,6 +15,7 @@ export default async function handler(req, res) {
   const fullPrompt =
     imagePrompt +
     ' Style: gender-neutral anime character, Pokemon trainer aesthetic, ' +
+    'waist-up centered portrait, full head and face visible, ' +
     'vibrant cell-shaded illustration, clean bold outlines, ' +
     'soft glowing aura, magical or technical companion creature in background, ' +
     'high-quality digital art, vibrant color palette. ' +
